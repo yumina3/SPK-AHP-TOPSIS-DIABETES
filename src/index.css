@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  /* Emerald Aesthetic Palette v2 - Softer & High Contrast */
+  --color-bg-main: #f9fdf9;
+  --color-sidebar: #ffffff;
+  --color-border-theme: #e6f4ea;
+  --color-text-main: #052e16; /* Near black green for readability */
+  --color-text-muted: #14532d; /* Dark solid green */
+  --color-primary: #10b981;
+  --color-primary-dark: #047857;
+}
+

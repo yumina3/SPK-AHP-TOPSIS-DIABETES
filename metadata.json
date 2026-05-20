@@ -1,0 +1,6 @@
+{
+  "name": "DiaCare DSS: Diabetes Risk Classification",
+  "description": "Professional decision support system for diabetes risk classification using AHP-TOPSIS methodology. Supports CSV upload and Iraqi Patient Dataset analysis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
