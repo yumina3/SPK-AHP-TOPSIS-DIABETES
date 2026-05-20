@@ -12,62 +12,53 @@ import { runTopsis } from './utils/topsis';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
-  // State utama — semua halaman baca dari sini
   const [patients, setPatients] = useState<PatientRecord[]>([]);
 
-  // Dipanggil UploadDataset setelah CSV berhasil diparse
   const handleDataLoaded = useCallback((
     rows: Omit<PatientRecord, 'id' | 'riskClass' | 'ccValue' | 'dPlus' | 'dMinus'>[]
   ) => {
     const result = runTopsis(rows, AHP_CRITERIA_DATA);
     setPatients(result);
-    // Otomatis pindah ke dashboard setelah data masuk
     setCurrentPage('dashboard');
   }, []);
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'dashboard':
-        return <Dashboard patients={patients} />;
-      case 'upload':
-        return <UploadDataset onDataLoaded={handleDataLoaded} />;
-      case 'ahp':
-        return <AHPDetail />;
-      case 'topsis':
-        return <TopsisDetail patients={patients} />;
-      case 'results':
-        return <ClassificationResult patients={patients} />;
-      default:
-        return <Dashboard patients={patients} />;
+      case 'dashboard': return <Dashboard patients={patients} />;
+      case 'upload':    return <UploadDataset onDataLoaded={handleDataLoaded} />;
+      case 'ahp':       return <AHPDetail />;
+      case 'topsis':    return <TopsisDetail patients={patients} />;
+      case 'results':   return <ClassificationResult patients={patients} />;
+      default:          return <Dashboard patients={patients} />;
     }
   };
 
   const getPageTitle = () => {
     const titles: Record<string, string> = {
       dashboard: 'DASHBOARD RINGKASAN',
-      upload: 'UNGGAH DATASET BARU',
-      ahp: 'DETAIL PERHITUNGAN AHP',
-      topsis: 'DETAIL PERHITUNGAN TOPSIS',
-      results: 'HASIL KLASIFIKASI LENGKAP',
+      upload:    'UNGGAH DATASET BARU',
+      ahp:       'DETAIL PERHITUNGAN AHP',
+      topsis:    'DETAIL PERHITUNGAN TOPSIS',
+      results:   'HASIL KLASIFIKASI LENGKAP',
     };
     return titles[currentPage] ?? 'DSS MEDIS';
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex font-sans">
+    <div className="min-h-screen bg-[#f8f7ff] flex font-sans">
       <Sidebar currentPage={currentPage} onPageChange={setCurrentPage} />
       <main className="flex-1 ml-[240px] flex flex-col h-screen overflow-hidden">
-        <header className="h-16 bg-white border-b border-emerald-100 flex items-center justify-between px-8 shrink-0">
-          <div className="text-[0.8rem] font-black text-emerald-900 tracking-widest uppercase">
+        <header className="h-16 bg-white border-b border-indigo-100 flex items-center justify-between px-8 shrink-0">
+          <div className="text-[0.8rem] font-black text-indigo-900 tracking-widest uppercase">
             {getPageTitle()}
           </div>
           <div className="flex items-center gap-4">
             {patients.length > 0 && (
-              <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full uppercase tracking-widest">
+              <span className="text-[10px] font-black text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full uppercase tracking-widest">
                 {patients.length.toLocaleString()} Data Aktif
               </span>
             )}
-            <div className="text-emerald-400 font-bold text-[0.7rem] tracking-wider uppercase">
+            <div className="text-indigo-400 font-bold text-[0.7rem] tracking-wider uppercase">
               {new Date().toLocaleDateString('id-ID', {
                 weekday: 'long', day: 'numeric',
                 month: 'long', year: 'numeric'

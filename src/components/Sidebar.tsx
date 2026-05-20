@@ -35,12 +35,12 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
   ];
 
   return (
-    <aside className="w-[240px] bg-white border-r border-emerald-100 flex flex-col h-screen fixed left-0 top-0 z-50">
-      <div className="p-6 flex items-center gap-3 border-b border-emerald-50">
-        <div className="text-emerald-500">
+    <aside className="w-[240px] bg-white border-r border-indigo-100 flex flex-col h-screen fixed left-0 top-0 z-50">
+      <div className="p-6 flex items-center gap-3 border-b border-indigo-50">
+        <div className="text-indigo-500">
           <Stethoscope size={28} strokeWidth={2.5} />
         </div>
-        <h1 className="font-extrabold text-emerald-900 text-lg tracking-tight">DIACARE</h1>
+        <h1 className="font-extrabold text-indigo-900 text-lg tracking-tight">DIACARE</h1>
       </div>
 
       <nav className="flex-1 py-6 space-y-1">
@@ -55,13 +55,13 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
               className={cn(
                 "w-full flex items-center gap-3 px-6 py-3.5 text-[0.85rem] font-bold transition-all duration-200 relative",
                 isActive 
-                  ? "bg-emerald-50 text-emerald-700 border-r-4 border-emerald-500" 
-                  : "text-emerald-700/50 hover:bg-emerald-50/50 hover:text-emerald-700"
+                  ? "bg-indigo-50 text-indigo-700 border-r-4 border-indigo-500" 
+                  : "text-indigo-700/50 hover:bg-indigo-50/50 hover:text-indigo-700"
               )}
             >
               <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className={cn(
                 "transition-colors",
-                isActive ? "text-emerald-600" : "text-emerald-300"
+                isActive ? "text-indigo-600" : "text-indigo-300"
               )} />
               {item.label.toUpperCase()}
             </button>
@@ -70,8 +70,8 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
       </nav>
 
       <div className="p-6 mt-auto">
-        <div className="bg-emerald-900 rounded-xl p-5 text-white shadow-xl shadow-emerald-200">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1 text-emerald-300">Medis Pro</p>
+        <div className="bg-indigo-900 rounded-xl p-5 text-white shadow-xl shadow-indigo-200">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1 text-indigo-300">Medis Pro</p>
           <p className="text-xs font-medium leading-relaxed opacity-90">Sistem Pendukung Keputusan Diabetes v1.0</p>
         </div>
       </div>
