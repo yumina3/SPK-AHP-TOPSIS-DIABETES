@@ -11,9 +11,11 @@ import { AHP_CRITERIA_DATA } from './constants';
 import { runTopsis } from './utils/topsis';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('dashboard');
-  const [patients, setPatients] = useState<PatientRecord[]>([]);
+  const [currentPage, setCurrentPage]     = useState('dashboard');
+  const [patients, setPatients]           = useState<PatientRecord[]>([]);
+  const [manualHistory, setManualHistory] = useState<PatientRecord[]>([]);
 
+  // Dipanggil saat CSV selesai diproses
   const handleDataLoaded = useCallback((
     rows: Omit<PatientRecord, 'id' | 'riskClass' | 'ccValue' | 'dPlus' | 'dMinus'>[]
   ) => {
@@ -22,21 +24,35 @@ export default function App() {
     setCurrentPage('dashboard');
   }, []);
 
+  // Dipanggil saat satu pasien manual selesai diproses
+  const handlePatientAdded = useCallback((patient: PatientRecord) => {
+    setManualHistory(prev => [...prev, patient]);
+    setPatients(prev => [...prev, patient]);
+  }, []);
+
   const renderPage = () => {
     switch (currentPage) {
       case 'dashboard': return <Dashboard patients={patients} />;
-      case 'upload':    return <UploadDataset onDataLoaded={handleDataLoaded} />;
-      case 'ahp':       return <AHPDetail />;
-      case 'topsis':    return <TopsisDetail patients={patients} />;
-      case 'results':   return <ClassificationResult patients={patients} />;
-      default:          return <Dashboard patients={patients} />;
+      case 'upload':
+        return (
+          <UploadDataset
+            onDataLoaded={handleDataLoaded}
+            existingPatients={patients}
+            onPatientAdded={handlePatientAdded}
+            manualHistory={manualHistory}
+          />
+        );
+      case 'ahp':     return <AHPDetail />;
+      case 'topsis':  return <TopsisDetail patients={patients} />;
+      case 'results': return <ClassificationResult patients={patients} />;
+      default:        return <Dashboard patients={patients} />;
     }
   };
 
   const getPageTitle = () => {
     const titles: Record<string, string> = {
       dashboard: 'DASHBOARD RINGKASAN',
-      upload:    'UNGGAH DATASET BARU',
+      upload:    'UNGGAH DATASET & INPUT PASIEN',
       ahp:       'DETAIL PERHITUNGAN AHP',
       topsis:    'DETAIL PERHITUNGAN TOPSIS',
       results:   'HASIL KLASIFIKASI LENGKAP',
@@ -58,10 +74,15 @@ export default function App() {
                 {patients.length.toLocaleString()} Data Aktif
               </span>
             )}
+            {manualHistory.length > 0 && (
+              <span className="text-[10px] font-black text-violet-600 bg-violet-50 border border-violet-100 px-3 py-1 rounded-full uppercase tracking-widest">
+                {manualHistory.length} Input Manual
+              </span>
+            )}
             <div className="text-indigo-400 font-bold text-[0.7rem] tracking-wider uppercase">
               {new Date().toLocaleDateString('id-ID', {
                 weekday: 'long', day: 'numeric',
-                month: 'long', year: 'numeric'
+                month: 'long', year: 'numeric',
               })}
             </div>
           </div>
