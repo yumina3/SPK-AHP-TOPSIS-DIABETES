@@ -28,7 +28,7 @@ interface SidebarProps {
 export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'upload', label: 'Upload Dataset', icon: Upload },
+    { id: 'upload', label: 'Upload Data', icon: Upload },
     { id: 'ahp', label: 'Detail AHP', icon: Settings2 },
     { id: 'topsis', label: 'Detail TOPSIS', icon: Calculator },
     { id: 'results', label: 'Hasil Klasifikasi', icon: FileCheck },
@@ -69,12 +69,7 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
         })}
       </nav>
 
-      <div className="p-6 mt-auto">
-        <div className="bg-indigo-900 rounded-xl p-5 text-white shadow-xl shadow-indigo-200">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1 text-indigo-300">Medis Pro</p>
-          <p className="text-xs font-medium leading-relaxed opacity-90">Sistem Pendukung Keputusan Diabetes v1.0</p>
-        </div>
-      </div>
+      
     </aside>
   );
 }
